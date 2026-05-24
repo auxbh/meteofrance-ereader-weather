@@ -30,7 +30,7 @@ With Docker run
 docker run -d -p 8080:8080 \
   -e GPS_COORDINATES=48.862137,2.3461315 \
   -e CITY_NAME=Paris \
-  ghcr.io/auxbh/meteofrance-ereader-weather
+  ghcr.io/auxbh/meteofrance-ereader-weather:main
 ```
 
 With Docker compose
@@ -38,7 +38,7 @@ With Docker compose
 ```sh
 services:
   nmeteofrance-ereader-weather:
-    image: ghcr.io/auxbh/meteofrance-ereader-weather
+    image: ghcr.io/auxbh/meteofrance-ereader-weather:main
     container_name: meteofrance-ereader-weather
     restart: unless-stopped
 
