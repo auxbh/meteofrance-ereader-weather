@@ -1,0 +1,9 @@
+requests
+Flask
+waitress
+paste
+geopy
+meteofrance-api
+pycairo
+cairosvg
+Pillow

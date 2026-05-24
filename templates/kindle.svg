@@ -1,0 +1,80 @@
+<svg width="600" height="800" viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Clip area for summary text to constrain width -->
+    <clipPath id="summary-clip">
+      <rect x="40" y="140" width="520" height="80" />
+    </clipPath>
+  </defs>
+  <!-- Recreated from index.html layout (600x800) -->
+  <!-- Current block: calendar, icon, temp, high/low -->
+  <rect x="50" y="30" width="90" height="90" fill="white" stroke="black" stroke-width="1" />
+  <rect x="50" y="30" width="90" height="28" fill="black" />
+  <text x="95" y="52" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="sans-serif">{{ info.day }}</text>
+  <text x="95" y="110" text-anchor="middle" fill="black" font-size="56" font-weight="bold" font-family="sans-serif">{{ info.date }}</text>
+
+  <image x="160" y="25" width="100" height="100" href="{{ now.icon_data }}" />
+  <text x="275" y="100" font-size="70" font-weight="bold" font-family="sans-serif">{{ now.temp }}°</text>
+  <text x="450" y="75" font-size="35" font-weight="bold" font-family="sans-serif">{{ now.high }}° H</text>
+  <text x="450" y="110" font-size="35" font-weight="bold" font-family="sans-serif">{{ now.low }}° L</text>
+
+  <!-- Conditions summary (centered, bold slightly larger) -->
+  <clipPath id="summary-clip">
+    <rect x="40" y="140" width="520" height="80" />
+  </clipPath>
+  <text x="300" y="160" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle" clip-path="url(#summary-clip)">
+    {% set summary = now.summary %}
+    {% set smax = 45 %}
+    {% set ns = namespace(line='') %}
+    {% set first = namespace(value=true) %}
+    {% for w in summary.split() %}
+      {% if ns.line == '' %}
+        {% set ns.line = w %}
+      {% elif (ns.line|length + 1 + w|length) <= smax %}
+        {% set ns.line = ns.line ~ ' ' ~ w %}
+      {% else %}
+        <tspan x="300" dy="{{ '1.2em' if first.value else '1.2em' }}">{{ ns.line }}</tspan>
+        {% set ns.line = w %}
+        {% set first.value = false %}
+      {% endif %}
+    {% endfor %}
+    {% if ns.line %}
+      <tspan x="300" dy="{{ '1.2em' if first.value else '1.2em' }}">{{ ns.line }}</tspan>
+    {% endif %}
+  </text>
+
+  <!-- Hourly forecast (width ~520 like .forecast) -->
+  <g id="hourly">
+    {% set n = hourly|length %}
+    {% if n < 1 %}{% set n = 1 %}{% endif %}
+    {% set seg = 520 / n %}
+    {% for item in hourly %}
+    {% set x = 40 + (loop.index0 + 0.5) * seg %}
+    <g>
+      <text x="{{ x }}" y="385" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle">{{ item.time }}</text>
+      <image x="{{ x - 40 }}" y="395" width="80" height="80" href="{{ item.icon_data }}" />
+      <text x="{{ x }}" y="490" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle">{{ item.temp }}°</text>
+    </g>
+    {% endfor %}
+  </g>
+
+  <!-- Daily forecast (width ~520) -->
+  <g id="daily">
+    {% set m = daily|length %}
+    {% if m < 1 %}{% set m = 1 %}{% endif %}
+    {% set seg2 = 520 / m %}
+    {% for item in daily %}
+    {% set xd = 40 + (loop.index0 + 0.5) * seg2 %}
+    <g>
+      <text x="{{ xd }}" y="550" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle">{{ item.day }}</text>
+      <text x="{{ xd }}" y="575" font-size="22" font-family="sans-serif" text-anchor="middle">{{ item.date }}</text>
+      <image x="{{ xd - 40 }}" y="585" width="80" height="80" href="{{ item.icon_data }}" />
+      <text x="{{ xd }}" y="680" font-size="18" font-weight="bold" font-family="sans-serif" text-anchor="middle">{{ item.high }}°</text>
+      <text x="{{ xd }}" y="700" font-size="18" font-family="sans-serif" text-anchor="middle">{{ item.low }}°</text>
+    </g>
+    {% endfor %}
+  </g>
+
+  <!-- Footer -->
+  <text x="300" y="750" font-size="16" font-family="monospace" text-anchor="middle">{{ now.api_provider }} ({{ info.location }})</text>
+  <text x="300" y="770" font-size="16" font-family="monospace" text-anchor="middle">{{ info.report_time }} (fetched @ {{ info.fetch_time }})</text>
+</svg>
