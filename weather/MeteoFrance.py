@@ -139,4 +139,5 @@ class MeteoFranceAPI:
                 }
             )
 
+        result["location"] = forecast.position.get("name")
         return result

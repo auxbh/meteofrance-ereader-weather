@@ -79,38 +79,6 @@ class WeatherUtils:
         return time.localtime()
 
     @staticmethod
-    def get_city_name(lat, lon):
-        env_city = os.getenv("CITY_NAME", "").strip()
-        if env_city:
-            return env_city
-
-        request_key = f"{lat},{lon}"
-        try:
-            WeatherUtils.__lock.acquire()
-            if request_key in WeatherUtils.__city_mapping:
-                return WeatherUtils.__city_mapping[request_key]
-
-            geolocator = geocoders.Nominatim(user_agent="Nook-Weather")
-            location = geolocator.reverse((lat, lon), exactly_one=True, language="fr")
-            address = location.raw.get("address", {}) if location else {}
-            city = (
-                address.get("city")
-                or address.get("town")
-                or address.get("village")
-                or address.get("municipality")
-                or address.get("county")
-            )
-            if city:
-                WeatherUtils.__city_mapping[request_key] = city
-                return city
-        except Exception as e:
-            logger.error("Failed to get city name from gps %s: %s", request_key, e)
-        finally:
-            WeatherUtils.__lock.release()
-
-        return f"{round(float(lat))},{round(float(lon))}"
-
-    @staticmethod
     def load_api_dump(url):
         if "DEBUG_API" in os.environ:
             url_hash = binascii.crc32(url.encode("utf8"))

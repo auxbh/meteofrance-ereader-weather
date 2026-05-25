@@ -49,7 +49,7 @@ def get_weather_data_from_request(req):
     info["date"] = time.strftime("%d", timestamp)
     info["report_time"] = time.strftime("%d/%m %H:%M:%S", report_time)
     info["fetch_time"] = time.strftime("%H:%M:%S", timestamp)
-    info["location"] = WeatherUtils.get_city_name(lat, lon)
+    info["location"] = data.get("location")
     info["map_location"] = f"{lat},{lon}"
     info["icon_path"] = "/static/images"
     info["icon_ext"] = "svg"

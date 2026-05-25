@@ -17,7 +17,6 @@ The icons are provided by Metéo-France
 ## Environment variables
 
 - `GPS_COORDINATES`: latitude,longitude
-- `CITY_NAME`: override location name. If not set, the script will reverse-geocode `GPS_COORDINATES`.
 - `EREADER_WIDTH`: output image width in pixels (default: `758`)
 - `EREADER_HEIGHT`: output image height in pixels (default: `1024`)
 
@@ -33,7 +32,6 @@ With Docker run
 ```sh
 docker run -d -p 8080:8080 \
   -e GPS_COORDINATES=48.862137,2.3461315 \
-  -e CITY_NAME=Paris \
   -e EREADER_WIDTH=758 \
   -e EREADER_HEIGHT=1024 \
   ghcr.io/auxbh/meteofrance-ereader-weather:main
@@ -50,7 +48,6 @@ services:
 
     environment:
       GPS_COORDINATES: 48.862137,2.3461315
-      CITY_NAME: Paris
       EREADER_WIDTH: 758
       EREADER_HEIGHT: 1024
 
@@ -70,14 +67,12 @@ Run the image
 ```sh
 docker run -d -p 8080:8080 \
   -e GPS_COORDINATES=48.862137,2.3461315 \
-  -e CITY_NAME=Paris \
   meteofrance-ereader-weather
 
 # Example overriding image size locally
 ```sh
 docker run -d -p 8080:8080 \
   -e GPS_COORDINATES=48.862137,2.3461315 \
-  -e CITY_NAME=Paris \
   -e EREADER_WIDTH=758 \
   -e EREADER_HEIGHT=1024 \
   meteofrance-ereader-weather
