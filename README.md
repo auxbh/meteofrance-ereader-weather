@@ -4,7 +4,7 @@ A lightweight weather server for e-readers such as the Kindle that uses [Météo
 
 This repository is based on https://github.com/gadget1999/rpi-docker/tree/master/nook-weather
 
-The icons are provided by Metéo-France
+The icons are provided by Météo-France
 
 <img src=".github/img/ereader_image.png" height="300px">
 
@@ -16,14 +16,14 @@ The icons are provided by Metéo-France
 
 ## Environment variables
 
-- `GPS_COORDINATES`: latitude,longitude
+- `GPS_COORDINATES`: latitude,longitude (default: `48.862137,2.346131`; Paris)
 - `EREADER_WIDTH`: output image width in pixels (default: `758`)
 - `EREADER_HEIGHT`: output image height in pixels (default: `1024`)
 
 ## Endpoints
 
-- `http://<ip>/forecast` — HTML weather forecast page
-- `http://<ip>/ereader_image` — generated image for e-reader display
+- `http://<ip>/forecast`: HTML weather forecast page
+- `http://<ip>/ereader_image`: generated image for e-reader display
 
 ## Run with Docker
 
@@ -67,13 +67,5 @@ Run the image
 ```sh
 docker run -d -p 8080:8080 \
   -e GPS_COORDINATES=48.862137,2.3461315 \
-  meteofrance-ereader-weather
-
-# Example overriding image size locally
-```sh
-docker run -d -p 8080:8080 \
-  -e GPS_COORDINATES=48.862137,2.3461315 \
-  -e EREADER_WIDTH=758 \
-  -e EREADER_HEIGHT=1024 \
   meteofrance-ereader-weather
 ```
