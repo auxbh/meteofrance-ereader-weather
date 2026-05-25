@@ -52,7 +52,7 @@ def get_weather_data_from_request(req):
     info["location"] = WeatherUtils.get_city_name(lat, lon)
     info["map_location"] = f"{lat},{lon}"
     info["icon_path"] = "/static/images"
-    info["icon_ext"] = "png"
+    info["icon_ext"] = "svg"
     data["info"] = info
     return data
 
@@ -90,7 +90,7 @@ def get_base64_icon(icon_name, icon_ext, static_dir):
     icon_path = os.path.join(static_dir, f"{icon_name}.{icon_ext}")
     try:
         with open(icon_path, "rb") as img_file:
-            return "data:image/png;base64," + base64.b64encode(img_file.read()).decode()
+            return "data:image/svg+xml;base64," + base64.b64encode(img_file.read()).decode()
     except Exception:
         return ""
 

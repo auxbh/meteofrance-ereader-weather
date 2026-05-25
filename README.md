@@ -1,8 +1,10 @@
 # meteofrance-ereader-weather
 
-A lightweight weather server for e-readers such as the Kindle that uses [Méteo-France](https://meteofrance.com/)'s API
+A lightweight weather server for e-readers such as the Kindle that uses [Météo-France](https://meteofrance.com/)'s API
 
 This repository is based on https://github.com/gadget1999/rpi-docker/tree/master/nook-weather
+
+The icons are provided by Metéo-France
 
 <img src=".github/img/ereader_image.png" height="300px">
 

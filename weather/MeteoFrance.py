@@ -9,8 +9,10 @@ DESC_ICON_MAP = [
     (["neige", "verglas"], "snow"),
     (["pluie", "averse", "bruine"], "rain"),
     (["brouillard", "brume"], "fog"),
+    (["eclaircie", "éclaircie", "variable"], "sunny-intervals"),
+    (["voilé"], "hazy"),
+    (["peu nuageux"], "partly-cloudy"),
     (["couvert", "nuageux", "nuage"], "cloudy"),
-    (["eclaircie", "éclaircie", "variable"], "partly-cloudy"),
     (["clair", "soleil", "ensoleille"], "clear"),
 ]
 
@@ -70,7 +72,7 @@ class MeteoFranceAPI:
                         else "partly-cloudy-night"
                     )
                 return icon
-        return "hail"
+        return "unknown"
 
     def forecast(self, lat, lon):
         forecast = self.__client.get_forecast(float(lat), float(lon), language="fr")
