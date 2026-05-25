@@ -76,6 +76,7 @@ class MeteoFranceAPI:
 
     def forecast(self, lat, lon):
         forecast = self.__client.get_forecast(float(lat), float(lon), language="fr")
+        observation = self.__client.get_observation(float(lat), float(lon), language="fr")
         current = forecast.current_forecast or forecast.nearest_forecast
         today = forecast.today_forecast or forecast.daily_forecast[0]
         current_time = self.__forecast_time(
@@ -83,7 +84,7 @@ class MeteoFranceAPI:
         )
         cond, icon = self.__weather(current, current_time)
 
-        temp = self.__temperature(current, "T", "value")
+        temp = int(round(float(observation.temperature)))
         feels = self.__temperature(current, "T", "windchill", default=temp)
         wind_speed = self.__temperature(current, "wind", "speed")
         wind_dir = WeatherUtils.get_direction_fr(
