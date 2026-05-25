@@ -145,12 +145,14 @@ def ereader_image():
             daily=data["daily"],
             info=data["info"],
         )
-        # Convert SVG to PNG (600x800) grayscale
-        logger.debug("Converting SVG to PNG...")
+        # Convert SVG to PNG (env-configurable size) grayscale
+        width = int(os.getenv("EREADER_WIDTH"))
+        height = int(os.getenv("EREADER_HEIGHT"))
+        logger.debug("Converting SVG to PNG... size=%sx%s", width, height)
         png_bytes = cairosvg.svg2png(
             bytestring=svg.encode("utf-8"),
-            output_width=600,
-            output_height=800,
+            output_width=width,
+            output_height=height,
             background_color="white",
         )
         image = Image.open(io.BytesIO(png_bytes)).convert("L")
