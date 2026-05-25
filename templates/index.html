@@ -177,10 +177,9 @@ img.precip {
 
   <div id="footer">
     {{ now.api_provider }}
-     (<a href="https://www.google.com/maps/search/?api=1&query={{ info.map_location }}" target="_blank">{{ info.location }}</a>)
-      | 
-     {{ info.report_time }}
-     (fetched @ {{ info.fetch_time }})
+    (<a href="https://www.google.com/maps/search/?api=1&query={{ info.map_location }}" target="_blank">{{ info.location }}</a>)
+    |
+    (actualisé à {{ info.fetch_time }})
   </div>
 
 </div>

@@ -76,5 +76,5 @@
 
   <!-- Footer -->
   <text x="300" y="750" font-size="16" font-family="monospace" text-anchor="middle">{{ now.api_provider }} ({{ info.location }})</text>
-  <text x="300" y="770" font-size="16" font-family="monospace" text-anchor="middle">{{ info.report_time }} (fetched @ {{ info.fetch_time }})</text>
+  <text x="300" y="770" font-size="10" font-family="monospace" text-anchor="middle">(actualisé à {{ info.fetch_time }})</text>
 </svg>
