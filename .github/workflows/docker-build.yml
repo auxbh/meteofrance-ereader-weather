@@ -5,10 +5,6 @@ on:
     paths-ignore:
       - '.gitignore'
       - 'README.md'
-  pull_request:
-    paths-ignore:
-      - '.gitignore'
-      - 'README.md'
   workflow_dispatch:
 
 env:
