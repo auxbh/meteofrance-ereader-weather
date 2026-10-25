@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 LABEL Description="A lightweight weather server for e-readers such as the Kindle that uses Méteo-France's API"
 
